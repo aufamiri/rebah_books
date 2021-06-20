@@ -5,36 +5,24 @@
 
 \section{Deskripsi Sistem}
 
-Sistem akan dibuat dengan \lipsum[21][1-12]
+Sistem kami bernama JagaBersama, suatu sistem yang dapat digunakan untuk mendeteksi kekerasan baik itu merupakan kekerasan dalam rumah tangga maupun \textit{bullying} atau perundungan yang biasa terjadi di sekolah - sekolah maupun di tempat umum. Dengan memanfaatkan salah satu cabang dalam pembelejaran mesin yaitu \textit{Deep Learning} ditambah dengan pengolahan citra modern, kita dapat melakukan pendeteksian secara otomatis dengan cepat dan murah. Diharapkan dengan adanya sistem kami maka dapat mengurangi jumlah kasus kekerasan di Indonesia dan dapat memberikan suatu ide pendekatan yang baru dalam menanggulangi kekerasan di Indonesia.
+
+Terdapat 2 target pengguna dalam sistem kami, yang pertama adalah Pengguna Umum yang akan memasang sistem kami (kamera + \textit{raspberry pi}) yang akan dapat secara otomatis mendeteksi kekerasan. Kemudian target pengguna yang pertama adalah Agen, agen disini yang dimaksud adalah agen yang dapat berasal dari Komnas Perempuan yang bertugas untuk menyelesaikan apabila terjadi suatu kasus kekerasan maupun bisa juga agen lain seperti polisi atau guru apabila kekerasan terjadi di sekolah.
+
+Namun, sebagai catatan, tanggung jawab saya kebanyakan merupakan pada bagian membuat aplikasi Android yang digunakan sebagai antar-muka antar agen dengan sistem basis data secara keseluruhan.
 
 \section{Implementasi Alat}
 
-Alat diimplementasikan dengan \lipsum[22]
+Terdapat 3 bagian terpisah dari sistem kami yang semuanya bekerja secara bersamaan sehingga menciptakan suatu sistem yang dapat berjalan dengan lancar dan \textit{reliable}. Bagian pertama adalah bagian \textit{Internet of Things} (IoT), selanjutnya adalah \textit{server} sebagai bagian paling penting dalam keseluruhan sistem dan terakhir adalah aplikasi Android sebagai antar-muka dengan agen. Gambar \ref{fig:framework} adalah gambaran secara luas bagaimana sistem kami bekeja secara keseluruhan.
 
-% Contoh pembuatan code snippet
-\begin{lstlisting}[
-  language=C++,
-  label={lst:Hello World},
-  caption={Program hello world}
-]
-#include <iostream>
 
-int main() {
-    std::cout << "Hello World!";
-    return 0;
-}
-\end{lstlisting}
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{gambar/framework.jpg}
+  % Keterangan gambar yang diinputkan
+  \caption{Diagram \textit{Framework} Keseluruhan Proyek}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:framework}
+\end{figure}
 
-% Contoh penggunaan referensi dari code snippet yang diinputkan
-Seperti contoh pada baris program Listing \ref{lst:Hello World} dan Listing \ref{lst:PrimeNumber}, \lipsum[23]
-
-% Contoh input code snippet
-\lstinputlisting[
-  % Bahasa yang digunakan oleh code snippet
-  language=Python,
-  % Label referensi dari code snippet yang diinputkan
-  label={lst:PrimeNumber},
-  % Keterangan dari code snippet yang diinputkan
-  caption={Program perhitungan bilangan prima}
-% Nama dari file code snippet yang diinputkan
-]{program/prime-number.py}
+\subsection{Implementasi IoT}
