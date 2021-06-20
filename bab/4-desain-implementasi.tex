@@ -35,4 +35,41 @@ Dalam proyek ini kami berencana untuk menggunakan 2 tipe alat, yang pertama adal
 
 Untuk teknik pembelajaran mesinnya kami menggunakan teknik \textit{3D Convolutional Neural Network} (3D-CNN), sebuah teknik yang merupakan pengembangan dari CNN biasa dengan cara menambahkan kemampuan untuk melihat tidak secara 1 \textit{frame} atau gambar, melainkan beberapa \textit{frame} sekaligus sehingga sangat cocok digunakan untuk tipe data video yang bersifat sekuensial seperti misalnya untuk mendeteksi orang terjatuh, mendeteksi orang berkelahi sampai mendeteksi kekerasan.
 
-Semua itu kami gabungkan dengan Flask sebagai \textit{webserver} dengan bahasa Python sehingga memudahkan saat implementasi karena hanya memerlukan 1 bahasa saja. Flask kami gunakan sebagai penanda \textit{endpoint} yang dapat diakses oleh Raspberry Pi untuk mengirimkan potongan video setiap beberapa detik sekali.
+Semua itu kami gabungkan dengan Flask sebagai \textit{webserver} dengan bahasa Python sehingga memudahkan saat implementasi karena hanya memerlukan 1 bahasa saja. Flask kami gunakan sebagai \textit{endpoint} yang dapat diakses oleh Raspberry Pi untuk mengirimkan potongan video setiap beberapa detik sekali.
+
+\subsection{Implementasi Aplikasi}
+
+Aplikasi disini digunakan sebagai antar-muka antara agen dengan sistem basis data yang digunakan pada sistem kami. Hal yang pertama kami lakukan adalah melakukan implementasi pada bagian tampilan, disini target utama kami adalah membuat tampilan yang mudah dipahami, serta gampang untuk digunakan.
+
+Gambar \ref{fig:splash_impl} adalah tampilan pada halaman \textit{splash}. \textit{Splash} disini berguna selain untuk melakukan inisialisasi basis data untuk melihat apakah pengguna sudah melakukan \textit{login} sebelumnya, juga digunakan untuk membuat aplikasi tampak lebih cepat dalam dijalankan.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gambar/splash.jpg}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Desain \textit{Splash Screen}}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:splash_impl}
+\end{figure}
+
+Gambar \ref{fig:login_impl} adalah tampilan pada halaman \textit{sign in}. Tampilan ini adalah yang kedua dilihat setelah memasuki halaman \textit{splash}. Dimana pengguna dapat melakukan \textit{login} untuk mengakses fitur aplikasi lebih lanjut lagi.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gambar/signin.jpg}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Desain Halaman \textit{Sign In}}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:login_impl}
+\end{figure}
+
+Gambar \ref{fig:signup_impl} adalah tampilan pada halaman \textit{sign up}. Tampilan ini adalah halaman yang akan dilihat saat suatu agen akan membuat akun baru. Terdapat beberapa \textit{field} yang harus diisi apabila akan mendaftar akun baru, yaitu \textit{username}, \textit{email}, nomor telepon dan \textit{password}. \textit{Username}, surel dan \textit{password} digunakan sebagai cara untuk melakukan \textit{login}.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gambar/signup.jpg}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Desain Halaman \textit{Sign Up}}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:signup_impl}
+\end{figure}
