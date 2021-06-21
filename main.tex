@@ -97,83 +97,72 @@
 % Isi keseluruhan dokumen
 \begin{document}
 
-  % Nomor halaman pembuka dimulai dari sini
-  \pagenumbering{roman}
+% Nomor halaman pembuka dimulai dari sini
+\pagenumbering{roman}
 
-  % Sampul luar
-  \input{sampul/sampul-luar.tex}
-  \cleardoublepage
+% Sampul luar
+\input{sampul/sampul-luar.tex}
+\cleardoublepage
 
-  % Sampul dalam
-  \input{sampul/sampul-dalam.tex}
-  \cleardoublepage
+% Sampul dalam
+\input{sampul/sampul-dalam.tex}
+\cleardoublepage
 
-  % Lembar pengesahaan untuk departemen
-  \input{pengesahan/pengesahan-departemen.tex}
-  \cleardoublepage
+% Lembar pengesahaan untuk departemen
+\input{pengesahan/pengesahan-departemen.tex}
+\cleardoublepage
 
-  % Lembar pengesahan untuk perusahaan
-  \input{pengesahan/pengesahan-perusahaan.tex}
-  \cleardoublepage
+% Lembar pengesahan untuk perusahaan
+\input{pengesahan/pengesahan-perusahaan.tex}
+\cleardoublepage
 
-  % Kata pengantar
-  \input{lainnya/kata-pengantar.tex}
-  \cleardoublepage
+% Kata pengantar
+\input{lainnya/kata-pengantar.tex}
+\cleardoublepage
 
-  % Daftar isi
-  \renewcommand*\contentsname{DAFTAR ISI}
-  \addcontentsline{toc}{chapter}{\contentsname}
-  \tableofcontents
-  \cleardoublepage
+% Daftar isi
+\renewcommand*\contentsname{DAFTAR ISI}
+\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+\cleardoublepage
 
-  % Daftar gambar
-  \renewcommand*\listfigurename{DAFTAR GAMBAR}
-  \addcontentsline{toc}{chapter}{\listfigurename}
-  \listoffigures
-  \cleardoublepage
+% Daftar gambar
+\renewcommand*\listfigurename{DAFTAR GAMBAR}
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\cleardoublepage
 
-  % Daftar tabel
-  \renewcommand*\listtablename{DAFTAR TABEL}
-  \addcontentsline{toc}{chapter}{\listtablename}
-  \listoftables
-  \cleardoublepage
+% Daftar tabel
+\renewcommand*\listtablename{DAFTAR TABEL}
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+\cleardoublepage
 
-  % Nomor halaman isi dimulai dari sini
-  \pagenumbering{arabic}
+% Nomor halaman isi dimulai dari sini
+\pagenumbering{arabic}
 
-  % Bab 1 pendahuluan
-  \input{bab/1-pendahuluan.tex}
-  \cleardoublepage
+% Bab 1 pendahuluan
+\input{bab/1-pendahuluan.tex}
+\cleardoublepage
 
-  % Bab 2 profil perusahaan
-  \input{bab/2-profil-perusahaan.tex}
-  \cleardoublepage
+% Bab 2 profil perusahaan
+\input{bab/2-profil-perusahaan.tex}
+\cleardoublepage
 
-  % Bab 3 tunjauan pustaka
-  \input{bab/3-tinjauan-pustaka.tex}
-  \cleardoublepage
+% Bab 3 tunjauan pustaka
+\input{bab/3-tinjauan-pustaka.tex}
+\cleardoublepage
 
-  % Bab 4 desain dan implementasi
-  \input{bab/4-desain-implementasi.tex}
-  \cleardoublepage
+% Bab 4 desain dan implementasi
+\input{bab/4-desain-implementasi.tex}
+\cleardoublepage
 
-  % Bab 5 pengujian dan evaluasi
-  \input{bab/5-pengujian-evaluasi.tex}
-  \cleardoublepage
+% Bab 6 kesimpulan dan saran
+\input{bab/6-kesimpulan-saran.tex}
+\cleardoublepage
 
-  % Bab 6 kesimpulan dan saran
-  \input{bab/6-kesimpulan-saran.tex}
-  \cleardoublepage
-
-  % Daftar pustaka
-  \renewcommand\bibname{DAFTAR PUSTAKA}
-  \addcontentsline{toc}{chapter}{\bibname}
-  \bibliographystyle{unsrtnat}
-  \bibliography{pustaka/pustaka.bib}
-  \cleardoublepage
-
-  % Biografi penulis
-  \input{lainnya/biografi-penulis.tex}
-  \cleardoublepage
+% Biografi penulis
+\input{lainnya/biografi-penulis.tex}
+\cleardoublepage
 
 \end{document}

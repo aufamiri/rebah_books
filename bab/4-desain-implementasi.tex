@@ -11,6 +11,8 @@ Terdapat 2 target pengguna dalam sistem kami, yang pertama adalah Pengguna Umum 
 
 Namun, sebagai catatan, tanggung jawab saya kebanyakan merupakan pada bagian membuat aplikasi Android yang digunakan sebagai antar-muka antar agen dengan sistem basis data secara keseluruhan.
 
+Seluruh kode yang digunakan untuk melakukan implementasi pada projek ini dapat diakses pada tautan \url{https://github.com/A0040325/capstone_app} untuk implementasi pada bagian aplikasi Android, tautan \url{https://github.com/A0040325/capstone_cloud} untuk implementasi pada bagian \textit{Cloud} dan \textit{Server}, dan tautan \url{https://github.com/A0040325/capstone_ml} untuk implementasi pada bagian pembelajaran mesin. Keseluruhan projek dapat diakses oleh publik secara gratis dan tanpa batasan apapun.
+
 \section{Implementasi Alat}
 
 Terdapat 3 bagian terpisah dari sistem kami yang semuanya bekerja secara bersamaan sehingga menciptakan suatu sistem yang dapat berjalan dengan lancar dan \textit{reliable}. Bagian pertama adalah bagian \textit{Internet of Things} (IoT), selanjutnya adalah \textit{server} sebagai bagian paling penting dalam keseluruhan sistem dan terakhir adalah aplikasi Android sebagai antar-muka dengan agen. Gambar \ref{fig:framework} adalah gambaran secara luas bagaimana sistem kami bekeja secara keseluruhan.
@@ -37,6 +39,60 @@ Untuk teknik pembelajaran mesinnya kami menggunakan teknik \textit{3D Convolutio
 
 Semua itu kami gabungkan dengan Flask sebagai \textit{webserver} dengan bahasa Python sehingga memudahkan saat implementasi karena hanya memerlukan 1 bahasa saja. Flask kami gunakan sebagai \textit{endpoint} yang dapat diakses oleh Raspberry Pi untuk mengirimkan potongan video setiap beberapa detik sekali.
 
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=.9\textwidth]{gambar/firestore.png}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Basis Data}
+
+  \label{fig:db_impl}
+\end{figure}
+
+Sebagai media penyimpanan, kami memutuskan untuk menggunakan Firebase, selain karena fiturnya yang lengkap, Firebase sudah menyediakan SDK baik untuk perangkat Android maupun untuk Python sehingga sangat mempermudah dalam melakukan pengembangan sistem. Gambar \ref{fig:db_impl} adalah struktur basis data yang kami gunakan. Terdapat beberapa isian dengan rincian sebagai berikut :
+
+\begin{itemize}
+  \item \textit{address}
+
+        Menyimpan data alamat pengguna tempat sistem kami dipasang dan dijalankan. Nilai ini didapat pada saat pemasangan karena setiap alat dari kami sudah memiliki nilai identifikasi masing - masing sehingga memudahkan untuk melakukan pengecekan maupun untuk mengetahui dari kamera mana kekerasan terdeteksi.
+
+  \item \textit{camera\_name}
+
+        Menyimpan nomor identifikasi kamera, berguna untuk mengetahui dari kamera mana foto yang terdeteksi tersebut berasal.
+
+  \item \textit{coordinate}
+
+        Menyimpan data koordinat tempat kekerasan terjadi. Nilai ini didapat dari sistem melalui pengaturan pada saat pemasangan. Fungsi koordinat ini adalah sebagai informasi tambahan dari isian \textit{address} yang sudah disebutkan sebelumnya. Selain itu juga sebagai sumber data yang digunakan untuk menampilkan peta.
+
+  \item \textit{created\_at}
+
+        Menyimpan waktu kapan data dimasukkan ke dalam basis data.
+
+  \item \textit{phone}
+
+        Menyimpan informasi berupa nomor telepon pengguna yang memasang sistem kami. Seperti nilai koordinat, \textit{camera\_name} dan \textit{address}, nilai dari \textit{phone} ini nantinya akan diatur pada saat memasang sistem kami pertama kali.
+
+  \item \textit{photo}
+
+        Adalah isian yang digunakan untuk menyimpan foto yang menunjukkan gambar ketika terjadinya kekerasan. Berformat \textit{base64}  untuk memudahkan dalam menyimpan data sekaligus mengurangi penggunaan media penyimpanan.
+
+  \item \textit{resolved}
+
+        Merupakan penanda apakah suatu kasus statusnya sudah selesai atau masih dalam pengerjaan. Apabila nilai dari isian ini sudah berisi \textit{True}, maka berarti kasus ini sudah selesai dan dimasukkan ke dalam \textit{history}, begitu juga sebaliknya, apabila nilai masih berisi \textit{False}, maka kasus belum selesai dan masih menunggu untuk ditangani.
+
+  \item \textit{resolved\_by}
+
+        Digunakan untuk menyimpan nomor identifikasi agen yang menyelesaikan kasus tersebut, aplikasi menggunakan nilai dari \textit{resolved\_by} dan status \textit{resolved} sebelum memutuskan bahwa kasus sudah selesai dan dimasukkan ke dalam \textit{history}. Apabila status \textit{resolved} masih berisi \textit{False} namun \textit{resolved\_by} sudah memiliki isi, berarti kasus sedang dalam tahap pengerjaan oleh agen yang nomor identifikasinya tersimpan di isian ini.
+
+  \item \textit{updated\_at}
+
+        Menyimpan data tentang kapan suatu kasus mengalami pembaruan, bisa berarti perubahan status kasus yang awalnya \textit{False} menjadi \textit{True} atau perubahan agen yang mengerjakan kasus tersebut. Selain itu dapat juga digunakan untuk mengetahui kapan kasus diselesaikan.
+
+  \item \textit{user}
+
+        Berguna untuk menyimpan nama pengguna yang memasang sistem kami. Seperti data nomor telepon dan beberapa data lainnya, nilai ini diatur pada saat melakukan pemasangan pertama kali.
+
+\end{itemize}
+
 \subsection{Implementasi Aplikasi}
 
 Aplikasi disini digunakan sebagai antar-muka antara agen dengan sistem basis data yang digunakan pada sistem kami. Hal yang pertama kami lakukan adalah melakukan implementasi pada bagian tampilan, disini target utama kami adalah membuat tampilan yang mudah dipahami, serta gampang untuk digunakan.
@@ -48,7 +104,6 @@ Gambar \ref{fig:splash_impl} adalah tampilan pada halaman \textit{splash}. \text
   \includegraphics[width=0.5\textwidth]{gambar/splash.jpg}
   % Keterangan gambar yang diinputkan
   \caption{Implementasi Desain \textit{Splash Screen}}
-  % Label referensi dari gambar yang diinputkan
   \label{fig:splash_impl}
 \end{figure}
 
@@ -72,4 +127,38 @@ Gambar \ref{fig:signup_impl} adalah tampilan pada halaman \textit{sign up}. Tamp
   \caption{Implementasi Desain Halaman \textit{Sign Up}}
   % Label referensi dari gambar yang diinputkan
   \label{fig:signup_impl}
+\end{figure}
+
+Untuk membantu dalam hal melakukan autentikasi, kami menggunakan Firebase Authentication. Firebase Authentication ini dipilih karena selain lebih mudah digunakan dan sudah memiliki fitur keamanan yang cukup. Seperti bisa dilihat pada gambar \ref{fig:auth_db}, kode sandi yang dimasukkan ke dalam basis data akan secara otomatis dilakukan proses enkripsi sehingga data yang dimasukkan menjadi lebih aman dan hanya pengguna sajalah yang tahu apa kode sandi yang digunakan.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=\textwidth]{gambar/firebaseauth.png}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Autentikasi pada Basis Data}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:auth_db}
+\end{figure}
+
+
+Gambar \ref{fig:list_impl} adalah tampilan yang akan paling sering dilihat oleh agen pada saat menggunakan aplikasi yang kami buat, dengan kata lain, halaman ini adalah halaman utama aplikasi kami. Halaman utama ini digunakan untuk melakukan daftar berbagai kasus kekerasan yang belum selesai atau belum ditangani. Nantinya, apabila agen sudah setuju untuk menangani, maka agen hanya perlu menekan tombol 'TERIMA', sistem akan otomatis mencatat nama agen tersebut sebagai agen yang datang ke lokasi dan menyelesaikan kasus kekerasan yang terjadi. Saat kasus sudah selesai, maka agen harus menekan tombol 'SELESAI' pada daftar kasus di aplikasi, dengan menekan tombol tersebut, maka kasus akan dinyatakan selesai dan masuk ke dalam \textit{history} kasus.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gambar/list.jpeg}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Desain Halaman Daftar Kekerasan yang Belum Selesai}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:list_impl}
+\end{figure}
+
+Apabila agen menekan pada bagian tengah pada daftar kekerasan, maka halaman akan berpindah ke halaman detail. Gambar \ref{fig:detail_impl} adalah tampilan dari halaman detail. Halaman detail ini digunakan untuk menunjukkan detail dari kekerasan, terdapat beberapa data diantaranya adalah foto kekerasan yang terjadi, data lengkap pengguna, tampilan peta tempat lokasi kejadian dan tombol untuk melakukan panggilan dengan mudah karena hanya memerlukan 1 kali menekan tombol tersebut saja.
+
+\begin{figure} [!ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{gambar/detail.jpeg}
+  % Keterangan gambar yang diinputkan
+  \caption{Implementasi Desain Halaman Detail Kekerasan}
+  % Label referensi dari gambar yang diinputkan
+  \label{fig:detail_impl}
 \end{figure}
